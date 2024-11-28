@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hostip_client"
+version = "1.0.0"
+authors = [
+  { name="Alex Massaroni", email="alex.m@seeweb.it" },
+]
+description = "A small hostip API client"
+readme = "README.md"
+requires-python = ">=3.0"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: The Unlicense (Unlicense)",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/rh363/hostip_client"
+Issues = "https://github.com/rh363/hostip_client/issues"
