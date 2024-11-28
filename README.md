@@ -44,8 +44,8 @@ client = Client(ip_address=ip_address)
 Once a `Client` instance is created, access the geographic information like so:
 
 ```python
-print("Country Name:", client.contry_name)
-print("Country Code:", client.contry_code)
+print("Country Name:", client.country_name)
+print("Country Code:", client.country_code)
 print("City:", client.city)
 print("Latitude:", client.latitude)
 print("Longitude:", client.longitude)

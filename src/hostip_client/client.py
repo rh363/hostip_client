@@ -49,8 +49,8 @@ class InvalidServiceUrl(Exception):
 
 class Client:
     # Properties to store geographic information
-    contry_name = None
-    contry_code = None
+    country_name = None
+    country_code = None
     city = None
     latitude = None
     longitude = None
@@ -97,10 +97,10 @@ class Client:
         # Parse response based on the format requested
         if self._format == "json":
             self._data = response.json()
-            self.contry_name: str | None = self._data.get("country_name", None)
-            if PRIVATE_ADDRESS in self.contry_name:
-                self.contry_name = PRIVATE_ADDRESS
-            self.contry_code: str | None = self._data.get("country_code", None)
+            self.country_name: str | None = self._data.get("country_name", None)
+            if PRIVATE_ADDRESS in self.country_name:
+                self.country_name = PRIVATE_ADDRESS
+            self.country_code: str | None = self._data.get("country_code", None)
             self.city: str | None = self._data.get("city", None)
         else:
             self._data = response.text
@@ -110,12 +110,12 @@ class Client:
                 if "Country" in line:
                     country = line.split(":")[1].strip()
                     if PRIVATE_ADDRESS in country:
-                        self.contry_name = PRIVATE_ADDRESS
-                        self.contry_code = "XX"
+                        self.country_name = PRIVATE_ADDRESS
+                        self.country_code = "XX"
                     else:
                         country_infos = country.split("(")
-                        self.contry_name = country_infos[0].strip()
-                        self.contry_code = country_infos[1].strip()[:-1]
+                        self.country_name = country_infos[0].strip()
+                        self.country_code = country_infos[1].strip()[:-1]
                     continue
                 if "City" in line:
                     self.city = line.split(":")[1].strip()
