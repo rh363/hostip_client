@@ -28,7 +28,8 @@ jobs:
 
       - name: Build release distributions
         run: |
-          pip install -r requirements.txt
+          sudo pip3 install --upgrade pip
+          pip install --upgrade -r requirements.txt
           python3 -m build
 
       - name: Upload distributions
