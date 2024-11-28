@@ -28,8 +28,8 @@ jobs:
 
       - name: Build release distributions
         run: |
-          sudo pip3 install --upgrade pip
-          pip install --upgrade -r requirements.txt
+          python3 -m pip install --upgrade build
+          python3 -m pip install --upgrade twine
           python3 -m build
 
       - name: Upload distributions
