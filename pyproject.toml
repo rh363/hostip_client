@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hostip_client"
-version = "1.0.2"
+version = "1.0.3"
 authors = [
   { name="Alex Massaroni", email="alex.m@seeweb.it" },
 ]
@@ -16,7 +16,9 @@ classifiers = [
     "License :: OSI Approved :: The Unlicense (Unlicense)",
     "Operating System :: OS Independent",
 ]
-
+dependencies = [
+    "requests>=2.32.3"
+]
 [project.urls]
 Homepage = "https://github.com/rh363/hostip_client"
 Issues = "https://github.com/rh363/hostip_client/issues"
