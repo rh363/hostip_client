@@ -13,7 +13,7 @@ This package provides a client for accessing geographic information about an IP 
 To install the package, clone the repository and install the necessary dependencies:
 
 ```bash
-pip install hostip-client==1.0.3
+pip install hostip-client
 ```
 
 ## Usage

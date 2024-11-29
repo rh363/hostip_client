@@ -19,6 +19,9 @@ DEFAULT_FORMAT = "json"
 # Placeholder for private IP address indication
 PRIVATE_ADDRESS = "Private Address"
 
+# Default timeout for trying to get ip address infos
+DEFAULT_TIMEOUT = 1
+
 
 class InvalidIpAddress(Exception):
     """
@@ -47,16 +50,16 @@ class InvalidServiceUrl(Exception):
     pass
 
 
-class Client:
+class IpInfos:
     # Properties to store geographic information
-    country_name = None
-    country_code = None
-    city = None
-    latitude = None
-    longitude = None
+    country_name: Union[str,None] = None
+    country_code: Union[str,None] = None
+    city: Union[str,None] = None
+    latitude: Union[str,None] = None
+    longitude: Union[str,None] = None
 
     def __init__(self, ip_address: str, hostip_url=DEFAULT_SERVICE_URL,
-                 use_format: Union[Literal["json"], Literal["html"]] = DEFAULT_FORMAT):
+                 use_format: Union[Literal["json"], Literal["html"]] = DEFAULT_FORMAT, timeout=DEFAULT_TIMEOUT):
         """
         Initializes the Client with given IP address, service URL, and response format.
         
@@ -64,6 +67,7 @@ class Client:
             ip_address (str): The IP address to be validated and used in requests.
             hostip_url (str): The service URL to be validated and used for making requests.
             use_format (Literal["json", "html"]): The response format, either 'json' or 'html'.
+            timeout (int): The timeout for making requests on hostip.info site.
         
         Raises:
             InvalidIpAddress: If the IP address does not match the valid pattern.
@@ -92,16 +96,18 @@ class Client:
         url = f"{self._service_url}/get_{self._format}.php"
 
         # Make a request to the service with the given IP address
-        response = requests.get(url, params={"ip": self._ip_address, "position": "true"})
+        response = requests.get(url, params={"ip": self._ip_address, "position": "true"}, timeout=timeout)
 
         # Parse response based on the format requested
         if self._format == "json":
             self._data = response.json()
-            self.country_name: str | None = self._data.get("country_name", None)
+            self.country_name = self._data.get("country_name", None)
             if PRIVATE_ADDRESS in self.country_name:
                 self.country_name = PRIVATE_ADDRESS
-            self.country_code: str | None = self._data.get("country_code", None)
-            self.city: str | None = self._data.get("city", None)
+            self.country_code = self._data.get("country_code", None)
+            self.city = self._data.get("city", None)
+            self.latitude = self._data.get("latitude", None)
+            self.longitude = self._data.get("longitude", None)
         else:
             self._data = response.text
             lines = self._data.split("\n")
